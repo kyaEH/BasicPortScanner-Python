@@ -1,11 +1,11 @@
 import socket,errno
 target = socket.gethostbyname(input("Target: "))  
 
-vitesse = input("Set Timeout (Default: 0.5): ")
-if vitesse=='':
-    vitesse=0.5
-    print("Timeout set to 0.5 (default) ")
-vitesse=float(vitesse)
+speed = input("Set Timeout (Default: 1): ")
+if speed=='':
+    speed=1
+    print("Timeout set to 1 (default) ")
+speed=float(speed)
 
 porta = input("Set last port (default 1): ")
 if porta=='':
@@ -22,13 +22,13 @@ print("Scan initiated")
 try: 
     for port in range(porta,portb): 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-        socket.setdefaulttimeout(vitesse) 
+        socket.setdefaulttimeout(speed) 
         
         # returns an error indicator 
         result = s.connect_ex((target,port))
 
         if result ==0: 
-            s.send('WhoAreYou\r\n'.encode())
+            s.send('Ping\r\n'.encode())
             banner=s.recv(4098)
             print("\n============\n\nOpen port: "+str(port)+"\nBanner:\n"+str(banner).replace("\\n","\n").replace("\\r","\r")+"\n============\n") 
         else: 
